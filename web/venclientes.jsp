@@ -183,21 +183,21 @@
                                                 </div>
                                                 <div class="col-md-2 form-inline" >
                                                     <label>Descuento: &nbsp;</label><br>
-                                                    <input placeholder="Desc" class="form-control" type="text" name="descuento" id="descuento" style="width:100%;" required>
+                                                    <input placeholder="Desc" class="form-control" type="number" name="descuento" id="descuento" style="width:100%;" required>
                                                 </div>
                                                 <div class="col-md-2 form-inline" >
                                                     <label>Limite Crédito: &nbsp;</label><br>
-                                                    <input placeholder="Limite Crédito" class="form-control" type="text" name="limitecredito" id="limitecredito" style="width:100%;" required>
+                                                    <input placeholder="Limite Crédito" class="form-control" type="number" name="limitecredito" id="limitecredito" style="width:100%;" required>
                                                 </div>
                                                 <div class="col-md-2 form-inline" >
                                                     <label>Días Credito: &nbsp;</label><br>
-                                                    <input placeholder="Días Crédito" class="form-control" type="text" name="diascredito" id="diascredito" style="width:100%;" required>
+                                                    <input placeholder="Días Crédito" class="form-control" type="number" name="diascredito" id="diascredito" style="width:100%;" required>
                                                 </div>
                                                 <div class="col-md-3 form-inline" >
                                                     <label>Cliente Desde: &nbsp;</label><br>
-                                                    <input class="form-control" type="text" name="clientedesde" id="clientedesde" style="width:100%;" required>
                                                     
-                                                    <input type="text" id="datepicker">
+                                                    
+                                                    <input class="form-control" type="text" id="clientedesde" style="width:100%;" required>
                                                     
                                                 </div>
                                                 <div class="col-md-1 form-inline" ></div>
@@ -247,12 +247,8 @@
     $(function () {
         $("#tabs").tabs();
         
-        $( "#datepicker" ).datepicker();
-        // Getter
-var monthNames = $( ".selector" ).datepicker( "option", "monthNames" );
- 
-// Setter
-$( ".selector" ).datepicker( "option", "monthNames", [ "Januar", "Februar", "Marts", "April", "Maj", "Juni", "Juli", "August", "September", "Oktober", "November", "December" ] );
+        $( "#clientedesde" ).datepicker();
+        
         
     });
 </script>  
