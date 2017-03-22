@@ -14,6 +14,7 @@ import soft.jf.seguridad.modelos.Datavariablessession;
 import soft.jf.seguridad.modelos.Estadosusuarios;
 import soft.jf.seguridad.modelos.Segperfiles;
 import soft.jf.seguridad.modelos.Segusuarios;
+import soft.jf.seguridad.modelos.consucursales;
 
 /**
  *
@@ -232,8 +233,10 @@ public class segUsuariosDAO {
             //valida contraseña
             if (existe.equals("")) {
 
-                sql = "select count(*) as existe,concat(nombre , ' ', apellidopaterno , ' ', apellidomaterno) as nombreUsuario "
-                        + "from seg_usuarios where contrasenia='" + contrasenia + "' limit 1";
+                sql = "select count(*) as existe,concat(u.nombre , ' ', u.apellidopaterno , ' ', u.apellidomaterno) as nombreUsuario,"
+                        + "s.sucursal,s.idsucursal as idsucursal "
+                        + "from seg_usuarios u,consucursales s where u.contrasenia='" + contrasenia + "'"
+                        + "and u.idsucursal=s.idsucursal limit 1";
                 System.out.println(sql);    
                 ResultSet rsc = conexionFactory.ejecutarConsulta(sql);
                 if (rsc != null) {
@@ -244,6 +247,13 @@ public class segUsuariosDAO {
                             sessiondata.setRespuesta(existe);
                             sessiondata.setIdusuario(usuario);
                             sessiondata.setNombreUsuario(rsc.getString("nombreUsuario"));
+                            
+                            consucursales sucursal = new consucursales();
+                            sucursal.setIdsucursal(rsc.getInt("idsucursal"));
+                            sucursal.setSucursal(rsc.getString("sucursal"));
+                            
+                            sessiondata.setIdsucursal(sucursal);
+                            
                             
                         } else {
                             existe = "Error en contraseña"; //contraseña usuario no existe

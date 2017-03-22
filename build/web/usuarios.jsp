@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<jsp:include page="verificasession.jsp" /> 
-<jsp:include page="verificaaccesoxpagina.jsp" />
+<jsp:include page="verificasession.jsp" />
+<jsp:include page="verificaaccesoxpagina.jsp?f=1"/>
 <jsp:include page="encabezadopaginas.jsp" /> 
 
 <%
@@ -24,6 +24,7 @@
                         <h3><i class="fa fa-angle-right"></i> Usuarios</h3>
                     </div>
                     <div class="col-md-1">
+
                         <a  href='#' ><button type="button" class="btn btn-round btn-info btn-lg " id="btnnuevo">
                                 <i class="fa fa-plus" aria-hidden="true"></i>
                             </button>

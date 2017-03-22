@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <jsp:include page="verificasession.jsp" /> 
-<jsp:include page="verificaaccesoxpagina.jsp" />
+<jsp:include page="verificaaccesoxpagina.jsp?f=2" />
 <jsp:include page="encabezadopaginas.jsp" /> 
 
 <%

@@ -23,16 +23,20 @@ public class conmonedasDAO{
     ConnectionFactory conexionFactory = new ConnectionFactory();
     private boolean resp = false;
     
-    public ArrayList<conmonedas> consulta() throws ClassNotFoundException, SQLException {
+    public ArrayList<conmonedas> consulta_todo() throws ClassNotFoundException, SQLException {
         Connection conexion = conexionFactory.conectar();
         ArrayList<conmonedas> lista = new ArrayList<>();
-        if(conexion != null) {
+        if(conexion != null){
             String sql = "SELECT * FROM conmonedas ORDER BY idmoneda";
             ResultSet rs = conexionFactory.ejecutarConsulta(sql);
-            if(rs != null) {
-                while (rs.next()) {
-                    conmonedas dat = new conmonedas();                    
-                    lista.add(dat);
+            if(rs != null){
+                while(rs.next()){
+                    conmonedas conMonedas = new conmonedas();
+                    conMonedas.setIdmoneda(rs.getString("idmoneda"));
+                    conMonedas.setMoneda(rs.getString("moneda"));
+                    conMonedas.setPais(rs.getString("pais"));
+                    conMonedas.setTipodecambio(rs.getString("tipocambio"));
+                    lista.add(conMonedas);
                 }
             }
             conexionFactory.desconectar();
@@ -42,6 +46,29 @@ public class conmonedasDAO{
         return lista;
     }   
     
+    public ArrayList<conmonedas> consulta(conmonedas obj) throws ClassNotFoundException, SQLException {
+     Connection conexion = conexionFactory.conectar();
+     ArrayList<conmonedas> lista = new ArrayList<>();
+     if(conexion != null){
+            String sql = "SELECT * FROM conmonedas  WHERE idmoneda='"+ obj.getIdmoneda()+"'";
+            ResultSet rs = conexionFactory.ejecutarConsulta(sql);
+            if(rs != null){
+                while(rs.next()){
+                    conmonedas conMonedas = new conmonedas();
+                    conMonedas.setIdmoneda(rs.getString("idmoneda"));
+                    conMonedas.setMoneda(rs.getString("moneda"));
+                    conMonedas.setPais(rs.getString("pais"));
+                    conMonedas.setTipodecambio(rs.getString("tipocambio"));
+                    lista.add(conMonedas);
+                }
+            }
+            conexionFactory.desconectar();
+        }else{
+            return null;
+        }
+        return lista;
+    }
+
     public boolean crea(conmonedas obj) throws ClassNotFoundException, SQLException {
         Connection conexion = conexionFactory.conectar();
         if(conexion != null) {
@@ -58,7 +85,7 @@ public class conmonedasDAO{
     public boolean actualiza(conmonedas obj) throws ClassNotFoundException, SQLException {
         Connection conexion = conexionFactory.conectar();
         if(conexion != null) {
-            String sql = "UPDATE conmonedas SET idmoneda='"+obj.getIdmoneda()+"', moneda='"+obj.getMoneda()+"',pais='"+obj.getPais()+"',tipocambio='"+obj.getTipodecambio()+"') WHERE idmoneda="+obj.getIdmoneda()+""; 
+            String sql = "UPDATE conmonedas SET moneda='"+obj.getMoneda()+"',pais='"+obj.getPais()+"',tipocambio="+obj.getTipodecambio()+" WHERE idmoneda='"+obj.getIdmoneda()+"'"; 
             boolean exitoso = conexionFactory.ejecutarSQL(sql);
             conexionFactory.desconectar();
             if(exitoso){
@@ -84,7 +111,7 @@ public class conmonedasDAO{
     public int verifica(conmonedas obj,String operacion) throws ClassNotFoundException, SQLException {
         Connection conexion = conexionFactory.conectar();
         int num_registros = 0;
-        String sql = "SELECT COUNT(*) as existe FROM conmonedas WHERE idmoneda='"+obj.getIdmoneda()+"' AND moneda='"+obj.getMoneda()+"' AND pais='"+obj.getPais()+"' AND tipocambio="+obj.getTipodecambio()+" "; 
+        String sql = "SELECT COUNT(*) as existe FROM conmonedas WHERE idmoneda='"+obj.getIdmoneda()+"'"; 
         if(conexion != null){
             ResultSet rs = conexionFactory.ejecutarConsulta(sql);
             if (rs != null) {

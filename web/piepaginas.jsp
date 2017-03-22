@@ -46,7 +46,8 @@
          class_name: 'my-sticky-class'
          });*/
 
-        return false;
+        //return false;
+        $('[data-toggle="tooltip"]').tooltip(); 
     });
 </script>
 

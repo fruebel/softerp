@@ -7,7 +7,7 @@ package soft.jf.seguridad.modelos;
 
 /**
  *
- * @author fcantera
+ * @author jbarrientos
  */
 public class conestados {
     private int idestado;
@@ -28,7 +28,5 @@ public class conestados {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-    
-    
     
 }

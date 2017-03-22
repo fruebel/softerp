@@ -55,6 +55,9 @@ public class loginSRV extends HttpServlet {
                     HttpSession session = request.getSession(true);
                     session.setAttribute("sessionUsuaurio", datavariablessession.getIdusuario());
                     session.setAttribute("sessionNombreusuario", datavariablessession.getNombreUsuario());
+                    session.setAttribute("idsucursal", datavariablessession.getIdsucursal().getIdsucursal());
+                    session.setAttribute("sucursal", datavariablessession.getIdsucursal().getSucursal());
+                    System.out.println("---"+datavariablessession.getIdsucursal().getSucursal());
                     accesoDAO.actualizaultimoacceso(datavariablessession.getIdusuario());
                    
                     }

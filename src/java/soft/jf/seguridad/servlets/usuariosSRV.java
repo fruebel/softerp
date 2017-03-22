@@ -174,6 +174,7 @@ public class usuariosSRV extends HttpServlet {
 
                     Segperfiles perfil = new Segperfiles();
                     perfil.setIdperfil(Integer.parseInt(idperfil));
+                    
                     usuario.setIdperfil(perfil);
 
                     usuario.setTelefono(telefono);

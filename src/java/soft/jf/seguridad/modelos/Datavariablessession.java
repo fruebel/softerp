@@ -14,6 +14,7 @@ public class Datavariablessession {
     private String respuesta;
     private String nombreUsuario;
     private String idusuario;
+    private consucursales idsucursal;
 
     public String getRespuesta() {
         return respuesta;
@@ -37,6 +38,14 @@ public class Datavariablessession {
 
     public void setIdusuario(String idusuario) {
         this.idusuario = idusuario;
+    }
+
+    public consucursales getIdsucursal() {
+        return idsucursal;
+    }
+
+    public void setIdsucursal(consucursales idsucursal) {
+        this.idsucursal = idsucursal;
     }
     
     

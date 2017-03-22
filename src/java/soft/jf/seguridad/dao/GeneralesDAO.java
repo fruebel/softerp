@@ -13,6 +13,7 @@ import soft.jf.seguridad.bd.ConnectionFactory;
 /**
  *
  * @author jbarrientos
+ * throws ClassNotFoundException exepcion de clase no encontrada
  */
 public class GeneralesDAO {
 

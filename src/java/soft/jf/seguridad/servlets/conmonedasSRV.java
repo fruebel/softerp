@@ -16,16 +16,19 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import soft.jf.seguridad.dao.conmonedasDAO;
 import soft.jf.seguridad.modelos.conmonedas;
 import soft.jf.seguridad.utils.MsgRespuesta;
 
 /**
- *
- * @author PaulReyes
- * @fecha  2017-03-16
+ * 
+ * @author Paul
+ * Catalogo para configuracion de monedas
+ * retur  regresa lista de monedas, al igual  verdadero o falso para la actualizacion o insercion de datos
+ * fecha  
+ * modifico
  */
+
 public class conmonedasSRV extends HttpServlet {
 
     /**
@@ -41,13 +44,16 @@ public class conmonedasSRV extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+
+            String action = request.getParameter("action");
+            String idrow = request.getParameter("idrow"); 
             String idmoneda = request.getParameter("Idmoneda");
             String moneda = request.getParameter("Moneda");
             String pais = request.getParameter("Pais");
             String tipodecambio = request.getParameter("Tipodecambio");
 
-            HttpSession session = request.getSession(true);
-            String sessionUsuario = (String) session.getAttribute("sessionUsuaurio");
+            //HttpSession session = request.getSession(true);
+            //String sessionUsuario = (String) session.getAttribute("sessionUsuaurio");
 
             Gson json;
             MsgRespuesta resp;
@@ -55,9 +61,6 @@ public class conmonedasSRV extends HttpServlet {
             ArrayList<conmonedas> lista;
             conmonedasDAO objDAO;
 
-            String action = request.getParameter("action");
-            String idRow = request.getParameter("idRow");
-            
             String data = "";
             String botonEditar = "";
             int existe = 0;
@@ -76,16 +79,13 @@ public class conmonedasSRV extends HttpServlet {
                     data = data + "</thead> ";
                     data = data + "<tbody>";
 
-                    obj = new conmonedas();
                     objDAO = new conmonedasDAO();
-                    lista = new ArrayList<>();
                     
                     try{
-                        lista = objDAO.consulta();
+                        lista = objDAO.consulta_todo();
                         if(lista.size()>0){
-                            out.print(lista);
                             for (conmonedas objmonedas : lista) {
-                                botonEditar = "<a href='#' ><button id='" + objmonedas.getIdmoneda() + "'  onclick='editar(this,event);' class='btn btn-primary btn-xs'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></button></a>";
+                                botonEditar = "<button id='" + objmonedas.getIdmoneda()+ "' class='btn btn-primary btn-xs btneditar' rel='tooltip' data-placement='top' title='Editar registro'><i class='fa fa-pencil-square-o' aria-hidden='true'></i></button>";
                                 data = data + " <tr> ";
                                 data = data + " <td>" + botonEditar + "</td>";
                                 data = data + " <td>" + objmonedas.getIdmoneda()+ "</td>";
@@ -94,6 +94,10 @@ public class conmonedasSRV extends HttpServlet {
                                 data = data + " <td>" + objmonedas.getTipodecambio() + "</td>";
                                 data = data + " </tr>";
                             }
+                        }else{
+                            data = data + " <tr> ";
+                            data = data + " <td class='text-center' colspan='5' > Aún no hay información para mostrar. </td>";
+                            data = data + " </tr>";
                         }                        
                         data = data + "</tbody>";
                         data = data + "<tfoot> ";
@@ -103,10 +107,29 @@ public class conmonedasSRV extends HttpServlet {
                         out.println(data);
                         
                     }catch(ClassNotFoundException | SQLException ex) {
-                        Logger.getLogger(permisosSRV.class.getName()).log(Level.SEVERE, null, ex);
-                        out.print("(Sys:erx001) Error dentro del sistema, intete nuevamente o comuniquese con Administración." + ex.getMessage());
+                        Logger.getLogger(conmonedasSRV.class.getName()).log(Level.SEVERE, null, ex);
+                        out.print("(BD:erx002) Error dentro del sistema, intete nuevamente o comuniquese con Administración." + ex.getMessage());
                     }
 
+                    break;
+                    
+                case "consulta":
+                   
+                    obj = new conmonedas();
+                    obj.setIdmoneda(idrow);
+                    
+                    json = new Gson();
+                    objDAO = new conmonedasDAO();
+                    lista = new ArrayList<>();
+
+                    try {
+                        lista = objDAO.consulta(obj);   
+                    }catch(ClassNotFoundException | SQLException ex) {
+                        Logger.getLogger(permisosSRV.class.getName()).log(Level.SEVERE, null, ex);
+                        out.print("(BD:erx002) Error dentro del sistema, intete nuevamente o comuniquese con Administración." + ex.getMessage());
+                    }
+                    
+                    out.print(json.toJson(lista));
                     break;
                     
                 case "nuevo":
@@ -140,7 +163,7 @@ public class conmonedasSRV extends HttpServlet {
                             }
                         }else{
                             resp.setRespuesta(false);
-                            resp.setMensaje("El Monto Monetario ya existe.");
+                            resp.setMensaje("(BD:erx001D)El Monto Monetario ya existe, intete nuevamente modificando los datos. .");
                         }
                     }catch(ClassNotFoundException | SQLException ex) {
                         resp.setRespuesta(false);
@@ -162,29 +185,18 @@ public class conmonedasSRV extends HttpServlet {
                     json = new Gson();
 
                     try{
-                        existe = objDAO.verifica(obj,"editar");
-                        if(existe == 0){
-                            try{
-                                boolean respuesta = objDAO.crea(obj);
-                                if (respuesta) {
-                                    resp.setRespuesta(true);
-                                    resp.setMensaje("Monto Monetario actualizado correctamente.");
-                                }else{
-                                    resp.setRespuesta(false);
-                                    resp.setMensaje("No pudo actualizarse el Monto Monetario.");
-                                }
-                            }catch (ClassNotFoundException | SQLException ex) {
-                                Logger.getLogger(permisosSRV.class.getName()).log(Level.SEVERE, null, ex);
-                                resp.setRespuesta(false);
-                                resp.setMensaje("(BD:er) Error al actualizar el Monto Monetario.");
-                            }
+                        boolean respuesta = objDAO.actualiza(obj);
+                        if (respuesta) {
+                            resp.setRespuesta(true);
+                            resp.setMensaje("Monto Monetario actualizado correctamente.");
                         }else{
                             resp.setRespuesta(false);
-                            resp.setMensaje("Monto Monetario ya existe, puede registrarlo con tipo de cambio diferente.");
+                            resp.setMensaje("No pudo actualizarse el Monto Monetario.");
                         }
                     }catch(ClassNotFoundException | SQLException ex) {
+                        Logger.getLogger(permisosSRV.class.getName()).log(Level.SEVERE, null, ex);
                         resp.setRespuesta(false);
-                        resp.setMensaje("(Sys:erx001) Error dentro del sistema, intete nuevamente o comuniquese con Administración.");
+                        resp.setMensaje("(BD:erx003) Error al actualizar el Monto Monetario.");
                     }
                     out.print(json.toJson(resp));
                     break;
@@ -211,7 +223,7 @@ public class conmonedasSRV extends HttpServlet {
                         }
                     } catch (ClassNotFoundException | SQLException ex) {
                         Logger.getLogger(permisosSRV.class.getName()).log(Level.SEVERE, null, ex);
-                        out.print("(Sys:erx001) Error dentro del sistema, intete nuevamente o comuniquese con Administración." + ex.getMessage());
+                        out.print("(BD:erx004) Error dentro del sistema, intete nuevamente o comuniquese con Administración." + ex.getMessage());
                     }
                     out.print(json.toJson(resp));
                     break;
@@ -221,8 +233,9 @@ public class conmonedasSRV extends HttpServlet {
             }
             out.flush();
             out.close();
+            
+            
         }
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
