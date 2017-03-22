@@ -58,7 +58,7 @@
                     if (listaFuncionesxModulo.size() > 0) {
                          out.println("<ul class='sub'>");
                          for (Segfunciones f : listaFuncionesxModulo) {
-                             out.println("<li><a  href='"+f.getUrl()+"?idmodulo="+m.getIdmodulo()+"'>"+f.getTitulo()+"</a></li>");
+                             out.println("<li><a  href='"+f.getUrl()+"&idmodulo="+m.getIdmodulo()+"'>"+f.getTitulo()+"</a></li>");
                          }
                          out.println("</ul>");
                     }                    

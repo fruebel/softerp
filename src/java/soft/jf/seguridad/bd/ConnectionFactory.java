@@ -41,9 +41,9 @@ public class ConnectionFactory {
 
             //Crear la conexion
             //String url = "jdbc:mysql://104.236.73.213:3306/erp";
-            String url = "jdbc:mysql://localhost:3306/softerp";
+            String url = "jdbc:mysql://localhost:3306/softerp_final";
             String user = "root";
-            String password = "mysql";
+            String password = "";
 
             conexion = DriverManager.getConnection(url,user,password);
 

@@ -3,8 +3,8 @@
 
     SegmodulosDAO accesomodulos;
     String sessionUsuario = (String) session.getAttribute("sessionUsuaurio");
-    
     int f1 = 0;
+
     if (request.getParameter("f") != null) {
         f1 = Integer.parseInt(request.getParameter("f"));
     }

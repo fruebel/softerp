@@ -9,11 +9,9 @@ import java.util.Date;
 
 /**
  *
- * @author jbarrientos
+ * @author fcantera
  */
 public class venclientes {
-    
-    
     private String idcliente;
     private String nombrecompleto;
     private String nombres;
@@ -27,23 +25,20 @@ public class venclientes {
     private String colonia;
     private String municipio;
     private String ciudad;
-    private String estado;
+    private conestados idestado;
     private String pais;
     private String cp;
-    private int idtipocliente;
-    
-    private String idterminopago;
-    private String idmetodopago;
-    private String idlistaprecio;
-    private int idhistorialcliente;
-    
-
+    private ventiposclientes idtipocliente;
+    private venterminospago idterminopago;
+    private venmetodospago idmetodopago;
+    private venlistasprecios idlistaprecio;
+    private venhistorialcliente idhistorialcliente;
     private double descuento;
     private double limitecredito;
     private int diascredito;
     private double ultimopago;
-    private Date fechaultimopago;
-    private Date clientedesde;
+    private String fechaultimopago;
+    private String clientedesde;
 
     public String getIdcliente() {
         return idcliente;
@@ -149,12 +144,12 @@ public class venclientes {
         this.ciudad = ciudad;
     }
 
-    public String getEstado() {
-        return estado;
+    public conestados getIdestado() {
+        return idestado;
     }
 
-    public void setEstado(String estado) {
-        this.estado = estado;
+    public void setIdestado(conestados idestado) {
+        this.idestado = idestado;
     }
 
     public String getPais() {
@@ -173,43 +168,43 @@ public class venclientes {
         this.cp = cp;
     }
 
-    public int getIdtipocliente() {
+    public ventiposclientes getIdtipocliente() {
         return idtipocliente;
     }
 
-    public void setIdtipocliente(int idtipocliente) {
+    public void setIdtipocliente(ventiposclientes idtipocliente) {
         this.idtipocliente = idtipocliente;
     }
 
-    public String getIdterminopago() {
+    public venterminospago getIdterminopago() {
         return idterminopago;
     }
 
-    public void setIdterminopago(String idterminopago) {
+    public void setIdterminopago(venterminospago idterminopago) {
         this.idterminopago = idterminopago;
     }
 
-    public String getIdmetodopago() {
+    public venmetodospago getIdmetodopago() {
         return idmetodopago;
     }
 
-    public void setIdmetodopago(String idmetodopago) {
+    public void setIdmetodopago(venmetodospago idmetodopago) {
         this.idmetodopago = idmetodopago;
     }
 
-    public String getIdlistaprecio() {
+    public venlistasprecios getIdlistaprecio() {
         return idlistaprecio;
     }
 
-    public void setIdlistaprecio(String idlistaprecio) {
+    public void setIdlistaprecio(venlistasprecios idlistaprecio) {
         this.idlistaprecio = idlistaprecio;
     }
 
-    public int getIdhistorialcliente() {
+    public venhistorialcliente getIdhistorialcliente() {
         return idhistorialcliente;
     }
 
-    public void setIdhistorialcliente(int idhistorialcliente) {
+    public void setIdhistorialcliente(venhistorialcliente idhistorialcliente) {
         this.idhistorialcliente = idhistorialcliente;
     }
 
@@ -245,21 +240,23 @@ public class venclientes {
         this.ultimopago = ultimopago;
     }
 
-    public Date getFechaultimopago() {
+    public String getFechaultimopago() {
         return fechaultimopago;
     }
 
-    public void setFechaultimopago(Date fechaultimopago) {
+    public void setFechaultimopago(String fechaultimopago) {
         this.fechaultimopago = fechaultimopago;
     }
 
-    public Date getClientedesde() {
+    public String getClientedesde() {
         return clientedesde;
     }
 
-    public void setClientedesde(Date clientedesde) {
+    public void setClientedesde(String clientedesde) {
         this.clientedesde = clientedesde;
     }
     
     
+    
+
 }

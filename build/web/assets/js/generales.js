@@ -20,40 +20,7 @@ function habilita_deshabilita_Tab(ope,index){
     $("#tabs").tabs(ope, index);
 }
 
-function mensaje(titulo,texto,tiempo,tipo,text_confirm,text_cancel) {
- swal({
-    title: titulo,
-    /*text: texto,*/
-    html: '<h4><strong>'+texto+'</strong></h4>',
-    timer: tiempo,
-    type: tipo,
-    confirmButtonText: text_confirm,
-    cancelButtonText: text_cancel
-    /*width: 600,
-    showLoaderOnConfirm: true,
-    preConfirm: function (email) {
-        return new Promise(function (resolve, reject) {
-          setTimeout(function () {
-            if (email === 'taken@example.com') {
-              reject('This email is already taken.')
-            } else {
-              resolve()
-            }
-          }, 2000)
-        })
-      },
-      allowOutsideClick: false*/
-    }).then(function(email){
-      /*swal({
-        type: 'success',
-        title: 'Ajax request finished!',
-        html: 'Submitted email: ' + '<strong>' + email + '</strong>'
-      });*/
-     }).catch(swal.noop);
-
-}
-
-function mensajen(titulo,texto,tiempo) {
+function mensaje(titulo,texto,tiempo) {
 
     swal({
         title: titulo,
@@ -68,24 +35,6 @@ function mensajen(titulo,texto,tiempo) {
                         }
                     }
             );
-}
-function validarSiNumero(numero){
-    var ok = true;
-    if (!/^([0-9])*$/.test(numero))
-      //alert("El valor " + numero + " no es un número");
-      ok=false;
-    
-    return ok;
-      
- }
-function alerta(mensaje){
-    
-    $("#row_alerta").fadeIn(1000, function() {
-       $("#row_alerta").fadeOut(1000);
-    });
-    $("#alerta").html(mensaje);
-       
-       
 }
 
 function llenaLista(tabla, id, texto, where, elemento) {
@@ -154,10 +103,4 @@ var isJpg = function (name) {
 var isPng = function (name) {
     return name.match(/png$/i)
 };
-
-function solo_num_enteros(elemento){
-    $(elemento).keyup(function (){
-        this.value = (this.value + '').replace(/[^0-9]/g,'');
-    });
-}
 

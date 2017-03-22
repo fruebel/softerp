@@ -1,7 +1,7 @@
 <%
  String sessionUsuario = (String) session.getAttribute("sessionUsuaurio");
  String sessionNombreusuario = (String) session.getAttribute("sessionNombreusuario");
- String sucursal = (String) session.getAttribute("sucursal");
+ 
 %>
 <!--header start-->
 <header class="header black-bg">
@@ -152,12 +152,9 @@
     </div-->
     <div class="top-menu">
         <ul class="nav pull-right top-menu">
-            <a class="logo" style="margin-top:20px;font-size:16px;padding-right:11px">
-                <%out.print(sessionNombreusuario);%> - <sucursal style="font-size: 13px">Sucursal: <%out.print(sucursal);%> </sucursal>
-            </a>
+            <a class="logo" style="margin-top:20px;font-size:16px;padding-right:11px"><%out.print(sessionNombreusuario);%></a>
             <li><a class="logout" style="font-size:25px;" href="salir.jsp"><i class="fa fa-power-off" aria-hidden="true"></i></a></li>
-           
-            
+
         </ul>
     </div>
 </header>

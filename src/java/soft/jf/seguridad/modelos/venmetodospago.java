@@ -7,11 +7,11 @@ package soft.jf.seguridad.modelos;
 
 /**
  *
- * @author jbarrientos
+ * @author fcantera
  */
 public class venmetodospago {
- private int idmetodopago;
- private String metodopago;
+    private int idmetodopago;
+    private String metodopago;
 
     public int getIdmetodopago() {
         return idmetodopago;
@@ -28,7 +28,6 @@ public class venmetodospago {
     public void setMetodopago(String metodopago) {
         this.metodopago = metodopago;
     }
- 
- 
- 
+    
+    
 }

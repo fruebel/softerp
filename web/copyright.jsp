@@ -1,7 +1,7 @@
 <!--footer start-->
 <footer class="site-footer">
     <div class="text-center">
-        &COPY; 2017 - Soft Engineers
+        2017 - Soft Engineers
         <a href="#" class="go-top">
             <i class="fa fa-angle-up"></i>
         </a>

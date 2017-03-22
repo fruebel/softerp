@@ -17,32 +17,12 @@
         <servlet-class>soft.jf.seguridad.servlets.permisosSRV</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>venclientesSRV</servlet-name>
+        <servlet-class>soft.jf.seguridad.servlets.venclientesSRV</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>conmonedasSRV</servlet-name>
         <servlet-class>soft.jf.seguridad.servlets.conmonedasSRV</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>templateSRV</servlet-name>
-        <servlet-class>soft.jf.seguridad.servlets.templateSRV</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>venbuscarproductosSRV</servlet-name>
-        <servlet-class>soft.jf.seguridad.servlets.venbuscarproductosSRV</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>venbuscaclientesSRV</servlet-name>
-        <servlet-class>soft.jf.seguridad.servlets.venbuscaclientesSRV</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>venbuscaproductoxid</servlet-name>
-        <servlet-class>soft.jf.seguridad.servlets.venbuscaproductoxid</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>venbuscarproductosavanzadaSRV</servlet-name>
-        <servlet-class>soft.jf.seguridad.servlets.venbuscarproductosavanzadaSRV</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>vengeneraventaSRV</servlet-name>
-        <servlet-class>soft.jf.seguridad.servlets.vengeneraventaSRV</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>loginSRV</servlet-name>
@@ -61,32 +41,12 @@
         <url-pattern>/permisosSRV</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>venclientesSRV</servlet-name>
+        <url-pattern>/venclientesSRV</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>conmonedasSRV</servlet-name>
         <url-pattern>/conmonedasSRV</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>templateSRV</servlet-name>
-        <url-pattern>/templateSRV</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>venbuscarproductosSRV</servlet-name>
-        <url-pattern>/venbuscarproductosSRV</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>venbuscaclientesSRV</servlet-name>
-        <url-pattern>/venbuscaclientesSRV</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>venbuscaproductoxid</servlet-name>
-        <url-pattern>/venbuscaproductoxid</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>venbuscarproductosavanzadaSRV</servlet-name>
-        <url-pattern>/venbuscarproductosavanzadaSRV</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>vengeneraventaSRV</servlet-name>
-        <url-pattern>/vengeneraventaSRV</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
