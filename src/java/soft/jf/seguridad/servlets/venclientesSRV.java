@@ -28,7 +28,9 @@ import soft.jf.seguridad.modelos.venlistasprecios;
 import soft.jf.seguridad.modelos.venhistorialcliente;
 import soft.jf.seguridad.modelos.venclientes;
 import soft.jf.seguridad.utils.MsgRespuesta;
-import java.util.Date;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
 
 /**
  *
@@ -381,7 +383,52 @@ public class venclientesSRV extends HttpServlet {
 
                     out.print(json.toJson(resp));
                     break;
+                case "buscarcp":
+                    String cp = request.getParameter("cp");
+                    JSONArray jsonArr = new JSONArray();
+                    JSONObject json = new JSONObject();
+                    ArrayList<invtempproducto> lista = new ArrayList<>();
+                    venbuscarproductosDAO dao = new venbuscarproductosDAO();
+                    double iva=0;
 
+                    HttpSession session = request.getSession(true);
+                    String sessionUsuario = (String) session.getAttribute("sessionUsuaurio");
+                    int idsucursal = (int) session.getAttribute("idsucursal");
+
+                    try {
+                        lista = dao.consultarproductos(name,sessionUsuario,idsucursal);
+
+                        json.put("value", "");                
+                        for (invtempproducto data : lista) {
+                            if (data.getIdproducto().toLowerCase().contains(name)) {
+                                json.put("name", data.getIdproducto());
+                                json.put("value", data.getIdproducto());
+                                json.put("precio", data.getPrecio());
+                                json.put("stock", data.getStock());
+                                json.put("cantidad", data.getCantidad());
+                                json.put("codigo", data.getCodigo());
+                                json.put("nombreproducto", data.getNombreproducto());
+                                json.put("preciounitario", data.getPreciounitario());
+                                json.put("total", data.getTotal());   
+                                json.put("almacen", data.getAlmacen());
+                                json.put("idtipoimpuesto", data.getIdtipoimpuesto().getIdtipoimpuesto());
+                                json.put("tipoimpuesto", data.getIdtipoimpuesto().getTipoimpuesto());
+                                json.put("porcentaje", data.getIdtipoimpuesto().getPorcentaje());
+                                iva = data.getIdtipoimpuesto().getPorcentaje()* Double.parseDouble(data.getPreciounitario());
+                                json.put("iva", iva);
+                                jsonArr.add(json);
+                            }
+
+                        }
+
+                        out.println(jsonArr);
+
+                    } catch (ClassNotFoundException | SQLException ex) {
+                        Logger.getLogger(venbuscarproductosSRV.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                    
+                    
                 default:
                     break;
 

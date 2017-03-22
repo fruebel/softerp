@@ -46,17 +46,15 @@
                             </div>
                             <div id="tabs-2">
                                 <div class="container-fluid">
-                                    <div class="panel panel-default">
-                                        <div class="panel-body" style="text-align:center; height: 30px; padding-top: 5px;">NUEVO CLIENTE</div>
-                                    </div>
-                                    <!--
+                                    
+                                    
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <button type="button" class="btn btn-primary btn-lg btn-block" id="titulo_ope">Nuevo</button>
+                                            <button type="button" class="btn btn-primary btn-lg btn-block" id="titulo_ope">Captura Cliente</button>
                                         </div>
                                     </div>
-                                    -->
-                                    <div class="panel panel-default">
+                                    <br>
+                                    <div class="panel panel-info">
                                         <div class="panel-heading">Datos Identificación del Cliente</div>
                                         <div class="panel-body">
                                             <div class="row">
@@ -94,13 +92,13 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="panel panel-default">
+                                    <div class="panel panel-info">
                                         <div class="panel-heading">Datos Domicilio del Cliente</div>
                                         <div class="panel-body">
                                             <div class="row">
                                                 <div class="col-md-2 form-inline" >
                                                     <label>CP: &nbsp;</label><br>
-                                                    <input placeholder="C.P." class="form-control" type="text" name="cp" id="cp" style="width:100%;" required>
+                                                    <input placeholder="C.P." class="form-control" type="number" name="cp" id="cp" style="width:100%;" required>
                                                 </div>
                                                 <div class="col-md-6 form-inline" >
                                                     <label>Calle: &nbsp;</label><br>
@@ -147,7 +145,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="panel panel-default">
+                                    <div class="panel panel-info">
                                         <div class="panel-heading">Datos Configuración del Cliente</div>
                                         <div class="panel-body">
                                             <div class="row">
@@ -262,7 +260,7 @@
     llenaLista("venhistorialcliente", "idhistorialcliente", "historialcliente", "1", "idhistorialcliente");
     
     pinta_contenido('listar');
-    $('#titulo_ope').html('Nuevo');
+    $('#titulo_ope').html('Captura Cliente');
     $('#btnnuevo').attr("disabled", false);
     $('#btnenviar').attr("disabled", true);
     activaTab(0);
@@ -279,7 +277,7 @@
         inhabilitacampos(true);
         $('#btnnuevo').attr("disabled", false);
         $('#btnenviar').attr("disabled", true);
-        $('#titulo_ope').html('Nuevo');
+        $('#titulo_ope').html('Captura Cliente');
          
     });
 
@@ -296,7 +294,7 @@
         $('#action').val('nuevo');
         $('#idRow').val(0);
         $('#idcliente').attr("readonly", false);
-        $('#titulo_ope').html('Nuevo');
+        $('#titulo_ope').html('Captura Cliente');
         $(this).attr("disabled", true);
         $('#btnenviar').attr("disabled", false);
         //$('#tab1').addClass("disabledTab");
@@ -392,7 +390,7 @@
         e.preventDefault();
         var idRrow = data.id;
         $('#frmData').attr('action', '<%out.print(servlet);%>');
-        $('#titulo_ope').html('Editar');
+        $('#titulo_ope').html('Editar Cliente');
         $('#action').val('editar');
         $('#idRow').val(idRrow);
         $('#idusuario').attr("readonly", true);
@@ -419,7 +417,6 @@
                 // body...
                 
                 var cliente = data[0];
-                alert(cliente.idestado.idestado);
                 $('#idcliente').val(cliente.idcliente);
                 $('#rfc').val(cliente.rfc);
                 $('#nombrecompleto').val(cliente.nombrecompleto);
@@ -460,6 +457,73 @@
 
     }
 
+    autocomplete();
+    function autocomplete() {
+        $("#cp").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "venbuscarproductosSRV",
+                    type: "POST",
+                    dataType: "json",
+                    data: {name: request.term},
+                    success: function (data) {
+                        response($.map(data, function (item) {
+
+                            return {
+                                label: item.name + '-' + item.nombreproducto + '-' + item.almacen,
+                                value: item.value,
+                                precio: item.precio,
+                                stock: item.stock,
+                                cantidad: item.cantidad,
+                                codigo: item.codigo,
+                                nombreproducto: item.nombreproducto,
+                                preciounitario: item.preciounitario,
+                                iva: item.iva,
+                                total: item.total
+
+                            }
+                        }));
+                    },
+                    error: function (error) {
+                        alert('error: ' + error);
+                    }
+                });
+            },
+            focus: function () {
+                // prevent value inserted on focus
+                //alert("focus");
+                return false;
+            },
+            select: function (event, ui) {
+
+                $("#txtbusca").val(ui.item.value);
+                $("#precio").val(ui.item.precio);
+                $("#stock").val(ui.item.stock);
+                $("#cantidad").val(ui.item.cantidad);
+                $("#codigo").val(ui.item.value);
+                $("#nombreproducto").val(ui.item.nombreproducto);
+                $("#preciounitario").val(ui.item.preciounitario);
+                $("#ivaxproducto").val(ui.item.iva);
+                $("#total").val(ui.item.total);
+                return false;
+            },
+            search: function (event, ui) {
+                //alert("busca este id -> " );
+                //$("#txtbusca").val("");
+                $("#precio").val("");
+                $("#stock").val("");
+                $("#cantidad").val("");
+                $("#codigo").val("");
+                $("#nombreproducto").val("");
+                $("#preciounitario").val("");
+                $("#total").val("");
+                $("#ivaxproducto").val("");
+            },
+            minLength: 1
+        });
+
+    }
+    
     function limpiacampos() {
 
         $('#idcliente').val('');
